@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Clientes</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .adicionar {
+            display: inline-block;
+            background: green;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        .editar {
+            background-color: blue;
+            color: white;
+            padding: 5px;
+            text-decoration: none;
+        }
+
+        .excluir {
+            background-color: red;
+            color: white;
+            padding: 5px;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Gerenciamento de Clientes</h1>
+
+    <a href="{{ url_for('adicionar') }}" class="adicionar">
+        + Adicionar Cliente
+    </a>
+
+    {% with mensagens = get_flashed_messages() %}
+
+        {% if mensagens %}
+
+            {% for mensagem in mensagens %}
+
+                <p>{{ mensagem }}</p>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <table>
+
+        <tr>
+
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>CPF</th>
+            <th>Ações</th>
+
+        </tr>
+
+
+        {% for cliente in clientes %}
+
+        <tr>
+
+            <td>{{ cliente.id }}</td>
+
+            <td>{{ cliente.nome }}</td>
+
+            <td>{{ cliente.email }}</td>
+
+            <td>{{ cliente.cpf }}</td>
+
+            <td>
+
+                <a
+                    href="{{ url_for('editar', id=cliente.id) }}"
+                    class="editar">
+                    Editar
+                </a>
+
+                <a
+                    href="{{ url_for('deletar', id=cliente.id) }}"
+                    class="excluir"
+                    onclick="return confirm('Deseja excluir este cliente?');">
+                    Excluir
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% else %}
+
+        <tr>
+
+            <td colspan="5">
+                Nenhum cliente cadastrado.
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+
+</html>

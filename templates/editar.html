@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Editar Cliente</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Editar Cliente</h1>
+
+
+    {% with mensagens = get_flashed_messages() %}
+
+        {% if mensagens %}
+
+            {% for mensagem in mensagens %}
+
+                <p>{{ mensagem }}</p>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <form method="POST">
+
+        <label>Nome:</label>
+
+        <input
+            type="text"
+            name="nome"
+            value="{{ cliente.nome }}"
+            required
+        >
+
+
+        <label>Email:</label>
+
+        <input
+            type="email"
+            name="email"
+            value="{{ cliente.email }}"
+            required
+        >
+
+
+        <label>CPF:</label>
+
+        <input
+            type="text"
+            name="cpf"
+            value="{{ cliente.cpf }}"
+            required
+        >
+
+
+        <button type="submit">
+            Salvar Alterações
+        </button>
+
+    </form>
+
+
+    <a href="{{ url_for('index') }}">
+        Voltar
+    </a>
+
+</div>
+
+</body>
+
+</html>
